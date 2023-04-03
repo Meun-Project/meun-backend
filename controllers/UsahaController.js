@@ -1,4 +1,5 @@
 import Usaha from "../models/UsahaModel.js";
+import User from "../models/UserModel.js";
 
 export const getUsaha = async (req, res) => {
   try {
@@ -19,10 +20,19 @@ export const getUsahaById = async (req, res) => {
 };
 
 export const createUsaha = async (req, res) => {
-  const newUsaha = new Usaha(req.body);
   try {
-    const response = await newUsaha.save();
-    res.status(201).json(response);
+    const { name, logo } = req.body;
+    const user = await User.findById(req.params.id);
+    const newUsaha = {
+      userId: user._id,
+      name,
+      logo,
+    };
+    const usaha = await Usaha.create(newUsaha);
+    console.log(user.usahaId)
+    user.usahaId.push(usaha._id);
+    await user.save();
+    res.status(201).json(usaha);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }

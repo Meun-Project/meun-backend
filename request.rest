@@ -7,13 +7,23 @@ POST http://localhost:5000/users
 Content-Type: application/json
 
 {
-    "name" : "admin",
-    "email" : "admin@gmail.com",
+    "name" : "John Doe",
+    "email" : "johndoe@gmail.com",
     "password" : "12345678",
     "confirmPassword" : "12345678",
-    "role" : "admin"
+    "role" : "user"
 }
 
 //GET USER By ID
 ###
 GET http://localhost:5000/users/642aaa71fcfae68facd7d379
+
+// GET USAHA
+###
+POST http://localhost:5000/usaha/642b026972a83f7d2c010aa5
+Content-Type: application/json
+
+{
+    "name" : "Fryway",
+    "logo" : "logo.jpg"
+}
