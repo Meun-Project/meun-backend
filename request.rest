@@ -1,0 +1,19 @@
+//GET USERS
+GET http://localhost:5000/users
+
+// CREATE USER
+###
+POST http://localhost:5000/users
+Content-Type: application/json
+
+{
+    "name" : "admin",
+    "email" : "admin@gmail.com",
+    "password" : "12345678",
+    "confirmPassword" : "12345678",
+    "role" : "admin"
+}
+
+//GET USER By ID
+###
+GET http://localhost:5000/users/642aaa71fcfae68facd7d379
