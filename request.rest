@@ -18,14 +18,32 @@ Content-Type: application/json
 ###
 GET http://localhost:5000/users/642aaa71fcfae68facd7d379
 
-// GET USAHA
+
+//GET USERS
+###
+GET http://localhost:5000/usaha
+
+
+// CREATE USAHA
 ###
 POST http://localhost:5000/usaha/642b026972a83f7d2c010aa5
 Content-Type: application/json
 
 {
-    "name" : "Fryway",
+    "name" : "Aci Bangor",
     "logo" : "logo.jpg"
+}
+
+// CREATE MENU
+###
+POST http://localhost:5000/menu/642b028572a83f7d2c010aa8
+Content-Type: application/json
+
+{
+    "name" : "Chicken n Fries LG",
+    "harga" : 20000,
+    "diskon" : false,
+    "potongan" : 0
 }
 
 
@@ -35,7 +53,7 @@ GET http://localhost:5000/me
 
 ###
 //LOGIN Admin
-POST http://localhost:5000/login
+POST http://localhost:5000/auth/login
 Content-Type: application/json
 
 {

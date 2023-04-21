@@ -2,7 +2,6 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import UserRoute from "./routes/UserRoute.js";
-import UsahaRoute from "./routes/UsahaRoute.js";
 import AuthRoute from "./routes/AuthRoute.js";
 import mongoose from "mongoose";
 import session from "express-session";
@@ -31,7 +30,7 @@ store.on("error", function (error) {
 
 app.use(
   session({
-    secret: "secretpass",
+    secret: process.env.SESS_SECRET,
     resave: false,
     saveUninitialized: false,
     store: store,
@@ -44,14 +43,9 @@ db.on("error", (error) => console.log(error));
 db.on("open", () => console.log("Database connected"));
 
 app.use(cors());
-// cors({
-//   credentials: true, //agar frontend dapat mengirimkan req beserta cooiki beserta menyertakan credentialnya.
-//   origin: "http://localhost:3000", //agar hanya domain frontend yang bisa mengakses api dari backend
-// })
 app.use(express.json());
 app.use(UserRoute);
-app.use(UsahaRoute);
-app.use(AuthRoute);
+app.use("/auth", AuthRoute);
 
 app.listen(process.env.APP_PORT, () => {
   console.log("Server up and running ...");

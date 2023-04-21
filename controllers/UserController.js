@@ -3,7 +3,7 @@ import User from "../models/UserModel.js";
 
 export const getUsers = async (req, res) => {
   try {
-    const response = await User.find({}, "_id name email role usahaId").populate("usahaId");
+    const response = await User.find({}, "_id name email role usahaId");
     res.status(200).json(response);
   } catch (error) {
     res.status(500).json({ message: error.message });

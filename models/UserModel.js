@@ -18,13 +18,7 @@ const UserSchema = mongoose.Schema({
   role: {
     type: String,
     required: true,
-  },
-  usahaId: [
-    {
-      type: ObjectId,
-      ref: "Usaha",
-    },
-  ],
+  }
 });
 
 export default mongoose.model("User", UserSchema);
