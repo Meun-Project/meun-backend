@@ -5,7 +5,7 @@ import UserRoute from "./routes/UserRoute.js";
 import AuthRoute from "./routes/AuthRoute.js";
 import mongoose from "mongoose";
 import session from "express-session";
-import { default as connectMongoDBSession} from 'connect-mongodb-session';
+import { default as connectMongoDBSession } from "connect-mongodb-session";
 
 dotenv.config();
 
