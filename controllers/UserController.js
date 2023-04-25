@@ -42,7 +42,7 @@ export const createUser = async (req, res) => {
 export const updateUser = async (req, res) => {
   const { name, email, password, confirmPassword, role } = req.body;
   const user = await User.findById(req.params.id);
-  if (!user) return res.status(404).json({ msg: "User tidak ditemukan" });
+  if (!user) return res.status(404).json({ message: "User tidak ditemukan" });
   let hashPassword;
   if (password === "" || password === null) {
     hashPassword = user.password;
@@ -52,14 +52,14 @@ export const updateUser = async (req, res) => {
   if (password !== confirmPassword)
     return res
       .status(400)
-      .json({ msg: "Password dan confirm password tidak cocok" });
+      .json({ message: "Password dan confirm password tidak cocok" });
   try {
     user.name = name;
     user.email = email;
     user.password = hashPassword;
     user.role = role;
     await user.save();
-    res.status(201).json({ msg: "User telah di-update!" });
+    res.status(201).json({ message: "User telah di-update!" });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -68,10 +68,10 @@ export const updateUser = async (req, res) => {
 export const deleteUser = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
-    if (!user) return res.status(404).json({ msg: "User tidak ditemukan" });
+    if (!user) return res.status(404).json({ message: "User tidak ditemukan" });
     await user.remove();
-    res.status(201).json({ msg: "User telah berhasil dihapus!" });
+    res.status(201).json({ message: "User telah berhasil dihapus!" });
   } catch (error) {
-    res.status(400).json({ msg: error.message });
+    res.status(400).json({ message: error.message });
   }
 };
