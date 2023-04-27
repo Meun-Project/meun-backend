@@ -1,10 +1,14 @@
 import Menu from "../models/MenuModel.js";
+import Category from "../models/CategoryModel.js";
 import fs from "fs-extra";
 import path from "path";
 
 export const getMenu = async (req, res) => {
   try {
-    const response = await Menu.find();
+    const response = await Menu.find().populate({
+      path: "categoryId",
+      select: "id name",
+    });
     res.status(200).json(response);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -22,13 +26,17 @@ export const getMenuById = async (req, res) => {
 
 export const createMenu = async (req, res) => {
   try {
-    const { name, price } = req.body;
-    await Menu.create({
+    const { name, price, categoryId } = req.body;
+    const category = await Category.findOne({ _id: categoryId });
+    const menu = await Menu.create({
       name,
       price,
+      categoryId: category._id,
       image: `images/${req.file.filename}`,
     });
-    res.status(201).json({ message: "Menu  berhasil ditambahkan" });
+    category.menuId.push({ _id: menu._id });
+    await category.save();
+    res.status(201).json({ message: "Menu berhasil ditambahkan" });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }

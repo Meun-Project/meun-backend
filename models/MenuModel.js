@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+const { ObjectId } = mongoose.Schema;
 
 const menuSchema = new mongoose.Schema({
   name: {
@@ -11,7 +12,7 @@ const menuSchema = new mongoose.Schema({
   },
   discount: {
     type: Boolean,
-    default: false
+    default: false,
   },
   discountPrice: {
     type: Number,
@@ -24,6 +25,10 @@ const menuSchema = new mongoose.Schema({
   soldQty: {
     type: Number,
     default: 0,
+  },
+  categoryId: {
+    type: ObjectId,
+    ref: "Category",
   },
 });
 
