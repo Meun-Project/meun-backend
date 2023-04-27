@@ -1,4 +1,5 @@
 import Category from "../models/CategoryModel.js";
+import Usaha from "../models/UsahaModel.js";
 
 export const getCategories = async (req, res) => {
   try {
@@ -26,8 +27,11 @@ export const getCategoryById = async (req, res) => {
 
 export const createCategory = async (req, res) => {
   try {
-    const { name } = req.body;
-    await Category.create({ name });
+    const { name, usahaId } = req.body;
+    const usaha = await Usaha.findOne({ _id: usahaId });
+    const category = await Category.create({ name });
+    usaha.categoryId.push({ _id: category._id });
+    await usaha.save();
     res.status(201).json({ message: "Category berhasil ditambahkan" });
   } catch (error) {
     res.status(400).json({ message: error.message });

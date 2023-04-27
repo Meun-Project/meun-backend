@@ -5,6 +5,7 @@ import UserRoute from "./routes/UserRoute.js";
 import AuthRoute from "./routes/AuthRoute.js";
 import MenuRoute from "./routes/MenuRoute.js";
 import CategoryRoute from "./routes/CategoryRoute.js";
+import UsahaRoute from "./routes/UsahaRoute.js";
 import mongoose from "mongoose";
 import session from "express-session";
 import { default as connectMongoDBSession } from "connect-mongodb-session";
@@ -49,6 +50,7 @@ app.use(express.json());
 app.use(UserRoute);
 app.use(MenuRoute);
 app.use(CategoryRoute);
+app.use(UsahaRoute);
 app.use("/auth", AuthRoute);
 
 app.listen(process.env.APP_PORT, () => {

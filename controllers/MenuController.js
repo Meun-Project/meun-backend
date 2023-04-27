@@ -44,8 +44,27 @@ export const createMenu = async (req, res) => {
 
 export const updateMenu = async (req, res) => {
   try {
-    const { name, price } = req.body;
+    const { name, price, categoryId } = req.body;
     const menu = await Menu.findById(req.params.id);
+    const category = await Category.findById(categoryId);
+    const oldCategory = await Category.findById(menu.categoryId);
+
+    if (!menu.categoryId) {
+      menu.categoryId = categoryId;
+      category.menuId.push({ _id: menu._id });
+      await category.save();
+      // console.log(null);
+    }
+    if (oldCategory._id.toString() !== categoryId) {
+      menu.categoryId = categoryId;
+      const updateMenu = oldCategory.menuId.filter(
+        (id) => id.toString() !== menu._id.toString()
+      );
+      await oldCategory.updateOne({ menuId: updateMenu });
+      category.menuId.push({ _id: menu._id });
+      await category.save();
+    }
+
     if (req.file == undefined) {
       menu.name = name;
       menu.price = price;
