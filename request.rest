@@ -19,14 +19,15 @@ Content-Type: application/json
 GET http://localhost:5000/users/642aaa71fcfae68facd7d379
 
 
-//GET USERS
+//GET USAHA
 ###
 GET http://localhost:5000/usaha
 
 
 // CREATE USAHA
+// /usaha/{{id user}}
 ###
-POST http://localhost:5000/usaha/642b026972a83f7d2c010aa5
+POST http://localhost:5000/usaha/
 Content-Type: application/json
 
 {
@@ -35,8 +36,8 @@ Content-Type: application/json
 }
 
 // CREATE MENU
-###
-POST http://localhost:5000/menu/642b028572a83f7d2c010aa8
+### /menu/{{id usaha}}
+POST http://localhost:5000/menu
 Content-Type: application/json
 
 {

@@ -40,7 +40,6 @@ export const createUsaha = async (req, res) => {
       image: `images/${req.file.filename}`,
       userId: user._id,
     });
-    console.log(user.usahaId);
     user.usahaId.push({ _id: usaha._id });
     await user.save();
     res.status(201).json({ message: "Usaha berhasil ditambahkan" });

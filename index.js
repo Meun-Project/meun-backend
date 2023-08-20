@@ -56,3 +56,5 @@ app.use("/auth", AuthRoute);
 app.listen(process.env.APP_PORT, () => {
   console.log("Server up and running ...");
 });
+
+export default app;
