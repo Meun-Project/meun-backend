@@ -17,7 +17,10 @@ export const getMenu = async (req, res) => {
 
 export const getMenuById = async (req, res) => {
   try {
-    const response = await Menu.findById(req.params.id);
+    const response = await Menu.findById(req.params.id).populate({
+      path: "categoryId",
+      select: "id name",
+    });
     res.status(200).json(response);
   } catch (error) {
     res.status(500).json({ message: error.message });
