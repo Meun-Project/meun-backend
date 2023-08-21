@@ -11,10 +11,10 @@ import { upload } from "../middleware/multer.js";
 
 const router = express.Router();
 
-router.get("/menu", verifyUser, getMenu);
+router.get("/menu/all", verifyUser, getMenu);
 router.get("/menu/:id", verifyUser, getMenuById);
-router.post("/menu", verifyUser, upload, createMenu);
-router.patch("/menu/:id", verifyUser, upload, updateMenu);
-router.delete("/menu/:id", verifyUser, deleteMenu);
+router.post("/menu/add", verifyUser, upload, createMenu);
+router.patch("/menu/update/:id", verifyUser, upload, updateMenu);
+router.delete("/menu/delete/:id", verifyUser, deleteMenu);
 
 export default router;

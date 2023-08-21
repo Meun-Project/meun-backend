@@ -47,11 +47,11 @@ db.on("open", () => console.log("Database connected"));
 
 app.use(cors());
 app.use(express.json());
-app.use(UserRoute);
-app.use(MenuRoute);
-app.use(CategoryRoute);
-app.use(UsahaRoute);
-app.use("/auth", AuthRoute);
+app.use("/api/v1/auth", AuthRoute);
+app.use("/api/v1", UserRoute);
+app.use("/api/v1", UsahaRoute);
+app.use("/api/v1", CategoryRoute);
+app.use("/api/v1", MenuRoute);
 
 app.listen(process.env.APP_PORT, () => {
   console.log("Server up and running ...");
