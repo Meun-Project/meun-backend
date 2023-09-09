@@ -5,6 +5,7 @@ import UserRoute from "./routes/UserRoute.js";
 import AuthRoute from "./routes/AuthRoute.js";
 import MenuRoute from "./routes/MenuRoute.js";
 import CategoryRoute from "./routes/CategoryRoute.js";
+import CategoryUsahaRoute from "./routes/CategoryUsahaRoute.js";
 import UsahaRoute from "./routes/UsahaRoute.js";
 import mongoose from "mongoose";
 import session from "express-session";
@@ -50,6 +51,7 @@ app.use(express.json());
 app.use("/api/v1/auth", AuthRoute);
 app.use("/api/v1", UserRoute);
 app.use("/api/v1", UsahaRoute);
+app.use("/api/v1", CategoryUsahaRoute);
 app.use("/api/v1", CategoryRoute);
 app.use("/api/v1", MenuRoute);
 
