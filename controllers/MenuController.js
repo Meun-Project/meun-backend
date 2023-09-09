@@ -57,7 +57,7 @@ export const updateMenu = async (req, res) => {
       menu.categoryId = categoryId;
       category.menuId.push({ _id: menu._id });
       await category.save();
-      console.log("!menu.categoryId");
+      // console.log("!menu.categoryId");
     }
     if (oldCategory._id.toString() !== categoryId) {
       menu.categoryId = categoryId;
@@ -67,7 +67,7 @@ export const updateMenu = async (req, res) => {
       await oldCategory.updateOne({ menuId: updateMenu });
       category.menuId.push({ _id: menu._id });
       await category.save();
-      console.log("oldCategory._id.toString()");
+      // console.log("oldCategory._id.toString()");
     }
 
     if (req.file == undefined) {

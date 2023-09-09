@@ -74,7 +74,7 @@ export const updateUsaha = async (req, res) => {
   try {
     const { name, noWhatsapp, description, categoryUsahaId } = req.body;
     const usaha = await Usaha.findById(req.params.id);
-    const user = await User.findOne({ _id: req.session.userId });
+    // const user = await User.findOne({ _id: req.session.userId });
     if (req.file == undefined) {
       usaha.name = name;
       usaha.noWhatsapp = noWhatsapp;
