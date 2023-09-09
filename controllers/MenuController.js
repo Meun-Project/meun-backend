@@ -29,11 +29,12 @@ export const getMenuById = async (req, res) => {
 
 export const createMenu = async (req, res) => {
   try {
-    const { name, price, categoryId } = req.body;
+    const { name, price, categoryId, description } = req.body;
     const category = await Category.findOne({ _id: categoryId });
     const menu = await Menu.create({
       name,
       price,
+      description,
       categoryId: category._id,
       image: `images/${req.file.filename}`,
     });
@@ -47,17 +48,16 @@ export const createMenu = async (req, res) => {
 
 export const updateMenu = async (req, res) => {
   try {
-    const { name, price, categoryId } = req.body;
+    const { name, price, categoryId, description } = req.body;
     const menu = await Menu.findById(req.params.id);
     const category = await Category.findById(categoryId);
     const oldCategory = await Category.findById(menu.categoryId);
-    console.log(menu, category, oldCategory)
 
     if (!menu.categoryId) {
       menu.categoryId = categoryId;
       category.menuId.push({ _id: menu._id });
       await category.save();
-      console.log("!menu.categoryId")
+      console.log("!menu.categoryId");
     }
     if (oldCategory._id.toString() !== categoryId) {
       menu.categoryId = categoryId;
@@ -67,16 +67,18 @@ export const updateMenu = async (req, res) => {
       await oldCategory.updateOne({ menuId: updateMenu });
       category.menuId.push({ _id: menu._id });
       await category.save();
-      console.log("oldCategory._id.toString()")
+      console.log("oldCategory._id.toString()");
     }
 
     if (req.file == undefined) {
       menu.name = name;
+      menu.description = description;
       menu.price = price;
       await menu.save();
     } else {
       await fs.unlink(path.join(`public/${menu.image}`));
       menu.name = name;
+      menu.description = description;
       menu.price = price;
       menu.image = `images/${req.file.filename}`;
       await menu.save();

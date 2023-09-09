@@ -22,6 +22,10 @@ const usahaModel = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  categoryUsahaId: {
+    type: ObjectId,
+    ref: "CategoryUsaha",
+  },
   categoryId: [
     {
       type: ObjectId,

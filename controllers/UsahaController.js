@@ -3,6 +3,7 @@ import User from "../models/UserModel.js";
 import Category from "../models/CategoryModel.js";
 import fs from "fs-extra";
 import path from "path";
+import CategoryUsaha from "../models/CategoryUsahaModel.js";
 
 export const getUsaha = async (req, res) => {
   try {
@@ -14,8 +15,11 @@ export const getUsaha = async (req, res) => {
       .populate({
         path: "categoryId",
         select: "id name",
+      })
+      .populate({
+        path: "categoryUsahaId",
+        select: "id name",
       });
-    console.log();
     res.status(200).json(response);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -24,7 +28,19 @@ export const getUsaha = async (req, res) => {
 
 export const getUsahaById = async (req, res) => {
   try {
-    const response = await Usaha.findById(req.params.id);
+    const response = await Usaha.findById(req.params.id)
+      .populate({
+        path: "userId",
+        select: "id name",
+      })
+      .populate({
+        path: "categoryId",
+        select: "id name",
+      })
+      .populate({
+        path: "categoryUsahaId",
+        select: "id name",
+      });
     res.status(200).json(response);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -33,16 +49,20 @@ export const getUsahaById = async (req, res) => {
 
 export const createUsaha = async (req, res) => {
   try {
-    const { name, noWhatsapp, description } = req.body;
+    const { name, noWhatsapp, description, categoryUsahaId } = req.body;
     const user = await User.findOne({ _id: req.session.userId });
+    const categoryUsaha = await CategoryUsaha.findOne({ _id: categoryUsahaId });
     const usaha = await Usaha.create({
       name,
       noWhatsapp,
       description,
       image: `images/${req.file.filename}`,
+      categoryUsahaId: categoryUsahaId,
       userId: user._id,
     });
+    categoryUsaha.usahaId.push({ _id: usaha._id });
     user.usahaId.push({ _id: usaha._id });
+    await categoryUsaha.save();
     await user.save();
     res.status(201).json({ message: "Usaha berhasil ditambahkan" });
   } catch (error) {
@@ -52,19 +72,21 @@ export const createUsaha = async (req, res) => {
 
 export const updateUsaha = async (req, res) => {
   try {
-    const { name, noWhatsapp, description } = req.body;
+    const { name, noWhatsapp, description, categoryUsahaId } = req.body;
     const usaha = await Usaha.findById(req.params.id);
     const user = await User.findOne({ _id: req.session.userId });
     if (req.file == undefined) {
       usaha.name = name;
       usaha.noWhatsapp = noWhatsapp;
       usaha.description = description;
+      usaha.categoryUsahaId = categoryUsahaId;
       await usaha.save();
     } else {
       await fs.unlink(path.join(`public/${usaha.image}`));
       usaha.name = name;
       usaha.noWhatsapp = noWhatsapp;
       usaha.description = description;
+      usaha.categoryUsahaId = categoryUsahaId;
       usaha.image = `images/${req.file.filename}`;
       await usaha.save();
     }
