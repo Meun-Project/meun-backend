@@ -1,5 +1,6 @@
 import Menu from "../models/MenuModel.js";
 import Category from "../models/CategoryModel.js";
+import Usaha from "../models/UsahaModel.js";
 import fs from "fs-extra";
 import path from "path";
 
@@ -30,6 +31,7 @@ export const getMenuById = async (req, res) => {
 export const createMenu = async (req, res) => {
   try {
     const { name, price, categoryId, description } = req.body;
+    const usaha = await Usaha.findById(req.params.id);
     const category = await Category.findOne({ _id: categoryId });
     const menu = await Menu.create({
       name,
@@ -38,7 +40,9 @@ export const createMenu = async (req, res) => {
       categoryId: category._id,
       image: `images/${req.file.filename}`,
     });
+    usaha.menuId.push({ _id: menu._id });
     category.menuId.push({ _id: menu._id });
+    await usaha.save();
     await category.save();
     res.status(201).json({ message: "Menu berhasil ditambahkan" });
   } catch (error) {

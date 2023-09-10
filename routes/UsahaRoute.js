@@ -11,8 +11,8 @@ import { upload } from "../middleware/multer.js";
 
 const router = express.Router();
 
-router.get("/usaha/all", verifyUser, getUsaha);
-router.get("/usaha/:id", verifyUser, getUsahaById);
+router.get("/usaha/all", getUsaha);
+router.get("/usaha/:id", getUsahaById);
 router.post("/usaha/add", verifyUser, upload, createUsaha);
 router.patch("/usaha/update/:id", verifyUser, upload, updateUsaha);
 router.delete("/usaha/delete/:id", verifyUser, deleteUsaha);

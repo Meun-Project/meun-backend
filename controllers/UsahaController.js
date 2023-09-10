@@ -7,19 +7,10 @@ import CategoryUsaha from "../models/CategoryUsahaModel.js";
 
 export const getUsaha = async (req, res) => {
   try {
-    const response = await Usaha.find()
-      .populate({
-        path: "userId",
-        select: "id name",
-      })
-      .populate({
-        path: "categoryId",
-        select: "id name",
-      })
-      .populate({
-        path: "categoryUsahaId",
-        select: "id name",
-      });
+    const response = await Usaha.find().populate({
+      path: "categoryUsahaId",
+      select: "id name",
+    });
     res.status(200).json(response);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -38,8 +29,8 @@ export const getUsahaById = async (req, res) => {
         select: "id name",
       })
       .populate({
-        path: "categoryUsahaId",
-        select: "id name",
+        path: "menuId",
+        select: "id name price description",
       });
     res.status(200).json(response);
   } catch (error) {

@@ -13,7 +13,7 @@ const router = express.Router();
 
 router.get("/menu/all", verifyUser, getMenu);
 router.get("/menu/:id", verifyUser, getMenuById);
-router.post("/menu/add", verifyUser, upload, createMenu);
+router.post("/menu/add/:id", verifyUser, upload, createMenu);
 router.patch("/menu/update/:id", verifyUser, upload, updateMenu);
 router.delete("/menu/delete/:id", verifyUser, deleteMenu);
 

@@ -10,8 +10,8 @@ import {
 
 const router = express.Router();
 
-router.get("/categoryUsaha/all", verifyUser, getCategoriesUsaha);
-router.get("/categoryUsaha/:id", verifyUser, getCategoryUsahaById);
+router.get("/categoryUsaha/all",  getCategoriesUsaha);
+router.get("/categoryUsaha/:id", getCategoryUsahaById);
 router.post("/categoryUsaha/add", verifyUser, createCategoryUsaha);
 router.patch("/categoryUsaha/update/:id", verifyUser, updateCategoryUsaha);
 router.delete("/categoryUsaha/delete/:id", verifyUser, deleteCategoryUsaha);
