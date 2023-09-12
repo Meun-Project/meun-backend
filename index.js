@@ -7,6 +7,7 @@ import MenuRoute from "./routes/MenuRoute.js";
 import CategoryRoute from "./routes/CategoryRoute.js";
 import CategoryUsahaRoute from "./routes/CategoryUsahaRoute.js";
 import UsahaRoute from "./routes/UsahaRoute.js";
+import TransactionRoute from "./routes/TransactionRoute.js";
 import mongoose from "mongoose";
 import session from "express-session";
 import { default as connectMongoDBSession } from "connect-mongodb-session";
@@ -54,6 +55,7 @@ app.use("/api/v1", UsahaRoute);
 app.use("/api/v1", CategoryUsahaRoute);
 app.use("/api/v1", CategoryRoute);
 app.use("/api/v1", MenuRoute);
+app.use("/api/v1", TransactionRoute);
 
 app.listen(process.env.APP_PORT, () => {
   console.log("Server up and running ...");
