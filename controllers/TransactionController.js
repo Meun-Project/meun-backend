@@ -33,8 +33,8 @@ export const createTransaction = async (req, res) => {
       date,
       total_price_transaction,
       transactions,
-      userId: user._id,
       usahaId: usaha._id,
+      userId: user._id,
     });
     res.status(201).json(response);
   } catch (error) {
