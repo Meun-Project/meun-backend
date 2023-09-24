@@ -7,6 +7,7 @@ import MenuRoute from "./routes/MenuRoute.js";
 import CategoryRoute from "./routes/CategoryRoute.js";
 import CategoryUsahaRoute from "./routes/CategoryUsahaRoute.js";
 import UsahaRoute from "./routes/UsahaRoute.js";
+import TransactionRoute from "./routes/TransactionRoute.js";
 import mongoose from "mongoose";
 import session from "express-session";
 import { default as connectMongoDBSession } from "connect-mongodb-session";
@@ -17,7 +18,7 @@ const app = express();
 const MongoDBStore = connectMongoDBSession(session);
 
 //koneksi ke database dengan nama database relation_learning
-const mongodb = `mongodb://meundb:meundb@127.0.0.1:27017/meundb?retryWrites=true&w=majority`;
+const mongodb = `mongodb+srv://waidzk:kosanmin@cluster0.ag4km3f.mongodb.net/db_meun?retryWrites=true&w=majority`;
 mongoose.connect(mongodb, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -54,6 +55,7 @@ app.use("/api/v1", UsahaRoute);
 app.use("/api/v1", CategoryUsahaRoute);
 app.use("/api/v1", CategoryRoute);
 app.use("/api/v1", MenuRoute);
+app.use("/api/v1", TransactionRoute);
 
 app.listen(process.env.APP_PORT, () => {
   console.log("Server up and running ...");

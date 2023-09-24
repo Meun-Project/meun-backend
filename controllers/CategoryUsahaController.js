@@ -3,10 +3,7 @@ import Usaha from "../models/UsahaModel.js";
 
 export const getCategoriesUsaha = async (req, res) => {
   try {
-    const response = await CategoryUsaha.find().populate({
-      path: "usahaId",
-      select: "id name image description rating",
-    });
+    const response = await CategoryUsaha.find()
     res.status(200).json(response);
   } catch (error) {
     res.status(500).json({ message: error.message });

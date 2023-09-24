@@ -6,6 +6,10 @@ const categorySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  usahaId: {
+    type: ObjectId,
+    ref: "Usaha",
+  },
   menuId: [
     {
       type: ObjectId,

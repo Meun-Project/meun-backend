@@ -25,10 +25,25 @@ export const getCategoryById = async (req, res) => {
   }
 };
 
+export const getCategoriesByUsahaId = async (req, res) => {
+  try {
+    const response = await Category.find().populate({
+      path: "menuId",
+      select: "id name price discount discountPrice image soldQty",
+    });
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const createCategory = async (req, res) => {
   try {
-    const { name } = req.body;
-    await Category.create({ name });
+    const { name, usahaId } = req.body;
+    const usaha = await Usaha.findById(usahaId);
+    const category = await Category.create({ name });
+    usaha.categoryId.push({ _id: category._id });
+    await usaha.save();
     res.status(201).json({ message: "Category berhasil ditambahkan" });
   } catch (error) {
     res.status(400).json({ message: error.message });
