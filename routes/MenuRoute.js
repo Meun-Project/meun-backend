@@ -7,14 +7,14 @@ import {
   getMenuById,
   updateMenu,
 } from "../controllers/MenuController.js";
-import { upload } from "../middleware/multer.js";
+// import { upload } from "../middleware/multer.js";
 
 const router = express.Router();
 
 router.get("/menu/all", verifyUser, getMenu);
 router.get("/menu/:id", verifyUser, getMenuById);
-router.post("/menu/add/:id", verifyUser, upload, createMenu);
-router.patch("/menu/update/:id", verifyUser, upload, updateMenu);
+router.post("/menu/add/:id", verifyUser, createMenu);
+router.patch("/menu/update/:id", verifyUser, updateMenu);
 router.delete("/menu/delete/:id", verifyUser, deleteMenu);
 
 export default router;
